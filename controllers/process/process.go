@@ -492,6 +492,7 @@ func (meta *TFConfigurationMeta) getTFOutputs(ctx context.Context, k8sClient cli
 	}
 	var gotSecret v1.Secret
 	configurationName := configuration.ObjectMeta.Name
+	configurationLabels := configuration.ObjectMeta.Labels
 	if err := k8sClient.Get(ctx, client.ObjectKey{Name: name, Namespace: ns}, &gotSecret); err != nil {
 		if kerrors.IsNotFound(err) {
 			var secret = v1.Secret{
@@ -499,6 +500,8 @@ func (meta *TFConfigurationMeta) getTFOutputs(ctx context.Context, k8sClient cli
 					Name:      name,
 					Namespace: ns,
 					Labels: map[string]string{
+						"app.oam.dev/name:" configurationLabels["app.oam.dev/name"],
+    					"app.oam.dev/namespace:" configurationLabels["app.oam.dev/namespace"],
 						"terraform.core.oam.dev/created-by":      "terraform-controller",
 						"terraform.core.oam.dev/owned-by":        configurationName,
 						"terraform.core.oam.dev/owned-namespace": configuration.Namespace,
