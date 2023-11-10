@@ -500,8 +500,8 @@ func (meta *TFConfigurationMeta) getTFOutputs(ctx context.Context, k8sClient cli
 					Name:      name,
 					Namespace: ns,
 					Labels: map[string]string{
-						"app.oam.dev/name:" configurationLabels["app.oam.dev/name"],
-    					"app.oam.dev/namespace:" configurationLabels["app.oam.dev/namespace"],
+						"app.oam.dev/name": configurationLabels["app.oam.dev/name"],
+    					"app.oam.dev/namespace": configurationLabels["app.oam.dev/namespace"],
 						"terraform.core.oam.dev/created-by":      "terraform-controller",
 						"terraform.core.oam.dev/owned-by":        configurationName,
 						"terraform.core.oam.dev/owned-namespace": configuration.Namespace,
